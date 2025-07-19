@@ -1,7 +1,10 @@
+// std imports
 use std::collections::HashMap;
+use std::ffi::c_void;
 use std::net::SocketAddr;
 use std::sync::Arc;
 
+// Tokio imports
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::net::{TcpListener};
 use tokio::sync::{broadcast, Mutex};
@@ -10,7 +13,8 @@ type SharedClients = Arc<Mutex<HashMap<SocketAddr, tokio::net::tcp::OwnedWriteHa
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    let listener = TcpListener::bind("127.0.0.1:8080").await?;
+    let addr: &str = "127.0.0.1:8080";
+    let listener: TcpListener = TcpListener::bind(addr).await?;
     println!("Chat server started on port 8080");
 
     let (tx, _rx) = broadcast::channel::<(SocketAddr, String)>(100);
@@ -58,3 +62,6 @@ async fn main() -> std::io::Result<()> {
         });
     }
 }
+
+
+
