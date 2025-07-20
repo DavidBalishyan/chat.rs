@@ -1,6 +1,5 @@
 // std imports
 use std::collections::HashMap;
-use std::ffi::c_void;
 use std::net::SocketAddr;
 use std::sync::Arc;
 
